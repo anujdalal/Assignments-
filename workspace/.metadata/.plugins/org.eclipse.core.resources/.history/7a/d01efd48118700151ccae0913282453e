@@ -1,8 +1,0 @@
-package com.ad.client;
-
-import com.ad.ws.ServiceInt;
-import com.ad.ws.ServiceImplService;
-
-public class ServiceClient {
-
-}
