@@ -1,0 +1,9 @@
+package com.ad.ws;
+
+import javax.xml.ws.Endpoint;
+import com.ad.ws.ServiceInt;
+
+
+public class ServiceImpl {
+
+}

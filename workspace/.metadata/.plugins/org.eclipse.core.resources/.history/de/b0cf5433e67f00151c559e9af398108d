@@ -1,0 +1,17 @@
+import java.rmi.Naming;
+import java.rmi.registry.*;
+
+public class rsvserver {
+
+	
+	public rsvserver() {
+		
+		try {
+			
+			LocateRegistry.createRegistry(1099);
+			servImpl c = new servImpl();
+			
+			
+		}
+	}
+}

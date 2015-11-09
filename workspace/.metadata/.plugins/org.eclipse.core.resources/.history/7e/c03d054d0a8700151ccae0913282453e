@@ -1,0 +1,13 @@
+package com.ad.ws;
+
+import javax.xml.ws.Endpoint;
+import com.ad.ws.ServiceInt;
+
+
+public class ServiceImpl {
+
+	public static void main(String[] args) {
+		   Endpoint.publish("http://localhost:9999/ws/hello", new ServiceImpl());
+	    }
+	
+}

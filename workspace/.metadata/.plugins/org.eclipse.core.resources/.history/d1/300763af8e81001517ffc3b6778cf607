@@ -1,0 +1,11 @@
+import java.rmi.*;
+
+public class rsvImpl extends java.rmi.server.UnicastRemoteObject implements rsvInterface{
+ 
+	
+	public rsvImpl() throws java.rmi.RemoteException {
+		
+		super();
+	}
+	
+}

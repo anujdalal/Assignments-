@@ -1,0 +1,64 @@
+/* Part of this code is Copyright (c) 1995, 2014, Oracle and/or its affiliates. All rights reserved.
+ * 
+ */
+
+import java.net.*;
+import java.io.*;
+import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+
+public class myfileserver {
+	
+	 public static void main(String[] args) throws IOException {
+		 
+
+ 
+	 }
+}
+
+
+class multiThreadServer implements Runnable {
+
+	public void run() {
+		
+	}
+
+		
+}
+
+class ClientWorkerThread {
+
+	
+	
+}
+
+class serverStatistics {
+	
+	public int totalReq = 0; //n initialize number total number of requests
+	public int goodReq = 0; //m initialize total number of SUCCESSFUL requests
+	
+	public synchronized int getTotalReq() {
+		
+		return totalReq;	
+	}
+
+	public synchronized int getGoodReq() {
+		
+		return goodReq;
+	}
+	
+	public synchronized int countTotalReq() {
+		
+		return totalReq++;
+	}
+	
+	public synchronized int countGoodReq() {
+		
+		return goodReq++;
+	}
+}
+
+
+
