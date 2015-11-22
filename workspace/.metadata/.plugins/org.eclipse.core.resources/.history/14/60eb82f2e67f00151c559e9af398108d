@@ -1,6 +1,0 @@
-
-public class servImpl extends java.rmi.server Unicast RemoteObject implements reservation{
-
-	
-	
-}
