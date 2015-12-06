@@ -1,9 +1,9 @@
-
+package tollDalal.netsim;
 
 import java.io.*;
 import java.util.*;
  
-public class dijkstra {
+public class Dijkstra {
    private static final Graph.Edge[] GRAPH = {
       new Graph.Edge("1", "2", 1500000),
       new Graph.Edge("1", "3", 1500000),
@@ -37,12 +37,12 @@ public class dijkstra {
    };
    //this is for testing purposes, I'm working on getting it to run through the entire thing
    private static final String START = "1";
-   private static final String END = "24";
+  // private static final String END = "24";
  
    public static void main(String[] args) {
       Graph g = new Graph(GRAPH);
      g.dijkstra(START);
-     g.printPath(END);
+     //g.printPath(END);
      g.printAllPaths();
    }
 }
@@ -57,7 +57,7 @@ class Graph {
       public Edge(String vert1, String vert2, int distance) {
          this.vert1 = vert1;
          this.vert2 = vert2;
-         this.distance = distance;
+         this.distance = (100000000/distance);
       }
    }
  
@@ -148,7 +148,7 @@ class Graph {
    }
  
    /** Prints a path from the source to the specified vertex */
-   public void printPath(String endName) {
+  /* public void printPath(String endName) {
       if (!graph.containsKey(endName)) {
          System.err.printf("Graph doesn't contain end vertex \"%s\"\n", endName);
          return;
@@ -156,7 +156,7 @@ class Graph {
  
       graph.get(endName).printPath();
       System.out.println();
-   }
+   }*/
    
    public void printAllPaths() {
       for (Vertex v : graph.values()) {
