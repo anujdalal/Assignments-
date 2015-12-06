@@ -1,9 +1,9 @@
-package tollDalal.netsim;
+
 
 import java.io.*;
 import java.util.*;
  
-public class Dijkstra {
+public class dijkstra {
    private static final Graph.Edge[] GRAPH = {
       new Graph.Edge("1", "2", 1500000),
       new Graph.Edge("1", "3", 1500000),
