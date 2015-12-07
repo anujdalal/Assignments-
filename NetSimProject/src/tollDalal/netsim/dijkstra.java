@@ -5,6 +5,8 @@ import java.util.*;
  
 public class dijkstra {
    private static final Graph.Edge[] GRAPH = {
+		   
+		   //attributes of each edge are set up according to the OCT file
 		   new Graph.Edge("1", "2", 1500000, 184),
            new Graph.Edge("1", "3", 1500000, 840),
            new Graph.Edge("2", "4", 1500000, 707),
@@ -37,12 +39,14 @@ public class dijkstra {
    };
    //this is for testing purposes, I'm working on getting it to run through the entire thing
    private static final String START = "1";
-  // private static final String END = "24";
+   private static final String END = "26";
  
    public static void main(String[] args) {
       Graph g = new Graph(GRAPH);
+      
+      
      g.dijkstra(START);
-     //g.printPath(END);
+     g.printPath(END);
      g.printAllPaths();
    }
 }
@@ -74,8 +78,11 @@ class Graph {
 
    public static class Vertex implements Comparable<Vertex> {
       public final String name;
-      public int cost = Integer.MAX_VALUE; // MAX_VALUE assumed to be infinity
+      //set the cost of all nodes to infinity initially
+      public int cost = Integer.MAX_VALUE; 
       public Vertex previous = null;
+      
+      //create a hash map containing all vertex keys
       public final Map<Vertex, Integer> neighbours = new HashMap<>();
  
       public Vertex(String name) {
@@ -99,19 +106,24 @@ class Graph {
    }
  
 
+   //parameter is an array of edges
    public Graph(Edge[] edges) {
       graph = new HashMap<>(edges.length);
  
       //one pass to find all vertices
       for (Edge e : edges) {
+    	 
+    	 //if the first vertex on the edge is not present, add the first vertex to the above HashMap
          if (!graph.containsKey(e.vert1)) graph.put(e.vert1, new Vertex(e.vert1));
+         //if the second one if not present, add it as well
          if (!graph.containsKey(e.vert2)) graph.put(e.vert2, new Vertex(e.vert2));
       }
  
       //another pass to set neighbouring vertices
       for (Edge e : edges) {
+    	 //
          graph.get(e.vert1).neighbours.put(graph.get(e.vert2), e.metric);
-         graph.get(e.vert2).neighbours.put(graph.get(e.vert1), e.metric); // also do this for an undirected graph
+         graph.get(e.vert2).neighbours.put(graph.get(e.vert1), e.metric);
       }
    }
  
@@ -139,26 +151,49 @@ class Graph {
       Vertex u, v;
       while (!q.isEmpty()) {
  
-         u = q.pollFirst(); // vertex with shortest distanceance (first iteration will return source)
-         if (u.cost == Integer.MAX_VALUE) break; // we can ignore u (and any other remaining vertices) since they are unreachable
+         u = q.pollFirst(); // vertex with shortest distance (first iteration will return source)
+         
+         //if the cost of vertex u is "infinity", ignore u.
+         if (u.cost == Integer.MAX_VALUE) break;
  
-         //look at distanceances to each neighbour
+         //look at distances to each neighbour
          for (Map.Entry<Vertex, Integer> a : u.neighbours.entrySet()) {
             v = a.getKey(); //the neighbour in this iteration
  
-            final int alternatedistance = u.cost + a.getValue();
-            if (alternatedistance < v.cost) { // shorter path to neighbour found
+            final int alternateCost = u.cost + a.getValue();
+            if (alternateCost < v.cost) { // shorter path to neighbour found
                q.remove(v);
-               v.cost = alternatedistance;
+               v.cost = alternateCost;
                v.previous = u;
                q.add(v);
             } 
          }
       }
    }
+   
+   
+   
+   public void delays(){
+	  //this method calculated the various delays in this network. 
+	   Edge e = new Edge(null, null, 0, 0); 
+	   int Fij = 0; //flow between link i to link j
+	   double pij = (0.000005*e.Lij); //propagation delay for each link
+	   int L = (1500*8); // AVG Length of each packet in bits
+	   double ti = 0.0001; //processing delay
+	   double Dpq = 0; //avg traffic per second between two nodes
+	   int delta = 0; //total incoming packet rate
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   return;
+   }
  
    /** Prints a path from the source to the specified vertex */
-  /* public void printPath(String endName) {
+  public void printPath(String endName) {
       if (!graph.containsKey(endName)) {
          System.err.printf("Graph doesn't contain end vertex \"%s\"\n", endName);
          return;
@@ -166,7 +201,7 @@ class Graph {
  
       graph.get(endName).printPath();
       System.out.println();
-   }*/
+   }
    
    public void printAllPaths() {
       for (Vertex v : graph.values()) {
