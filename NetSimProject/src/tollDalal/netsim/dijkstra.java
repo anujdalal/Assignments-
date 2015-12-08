@@ -39,15 +39,20 @@ public class dijkstra {
    };
    //this is for testing purposes, I'm working on getting it to run through the entire thing
    private static final String START = "1";
-   private static final String END = "26";
+  // private static final String END = "26";
  
    public static void main(String[] args) {
       Graph g = new Graph(GRAPH);
+      int dpq = 0;
+      Scanner reader = new Scanner(System.in);
       
+      System.out.println("Enter the desired input flow (Dpq): ");
+      dpq = reader.nextInt();
       
-     g.dijkstra(START);
-     g.printPath(END);
-     g.printAllPaths();
+	     g.delays(dpq);
+	     g.dijkstra(START);
+	    // g.printPath(END);
+	     g.printAllPaths();
    }
 }
  
@@ -71,7 +76,6 @@ class Graph {
 	         this.Cij = Cij;;
 	         this.Lij = Lij;
 	         this.metric = (100000000/Cij);
-	         
 	      }
    }
  
@@ -129,29 +133,31 @@ class Graph {
  
    /** Runs dijkstra using a specified source vertex */ 
    public void dijkstra(String startName) {
-      if (!graph.containsKey(startName)) {
-         System.err.printf("Graph doesn't contain start vertex \"%s\"\n", startName);
-         return;
-      }
-      final Vertex source = graph.get(startName);
-      NavigableSet<Vertex> q = new TreeSet<>();
- 
-      // set-up vertices
-      for (Vertex v : graph.values()) {
-         v.previous = v == source ? source : null;
-         v.cost = v == source ? 0 : Integer.MAX_VALUE;
-         q.add(v);
-      }
- 
-      dijkstra(q);
+		   
+		  //startName is the first vertex dijkstra will be performed on
+	      final Vertex source = graph.get(startName);
+	      NavigableSet<Vertex> q = new TreeSet<>();
+	 
+	      /*for each source vertex in the graph
+	       *
+	       */
+	      for (Vertex v : graph.values()) {
+	         v.previous = v == source ? source : null;
+	         v.cost = v == source ? 0 : Integer.MAX_VALUE;
+	         q.add(v);
+	      }
+	 
+	      dijkstra(q);
+	   
    }
  
    /** Implementation of dijkstra's algorithm using a binary heap. */
    private void dijkstra(final NavigableSet<Vertex> q) {      
       Vertex u, v;
+      int used = 0; // counter for each time a particular link is used for the entire calculation
       while (!q.isEmpty()) {
  
-         u = q.pollFirst(); // vertex with shortest distance (first iteration will return source)
+         u = q.pollFirst(); //pollFirst method for NavigbleSet class returns the smallest value in the set
          
          //if the cost of vertex u is "infinity", ignore u.
          if (u.cost == Integer.MAX_VALUE) break;
@@ -172,20 +178,20 @@ class Graph {
    }
    
    
+   public void flowCalc(int used){
+	   int Fij = 0;
+	   	  
+	   
+   }
    
-   public void delays(){
+   
+   public void delays(int dpq){
 	  //this method calculated the various delays in this network. 
 	   Edge e = new Edge(null, null, 0, 0); 
-	   int Fij = 0; //flow between link i to link j
 	   double pij = (0.000005*e.Lij); //propagation delay for each link
 	   int L = (1500*8); // AVG Length of each packet in bits
 	   double ti = 0.0001; //processing delay
-	   double Dpq = 0; //avg traffic per second between two nodes
-	   int delta = 0; //total incoming packet rate
-	   
-	   
-	   
-	   
+	   int delta = 0; //total incoming packet rate	   
 	   
 	   
 	   
@@ -193,7 +199,7 @@ class Graph {
    }
  
    /** Prints a path from the source to the specified vertex */
-  public void printPath(String endName) {
+  /*public void printPath(String endName) {
       if (!graph.containsKey(endName)) {
          System.err.printf("Graph doesn't contain end vertex \"%s\"\n", endName);
          return;
@@ -201,7 +207,7 @@ class Graph {
  
       graph.get(endName).printPath();
       System.out.println();
-   }
+   }*/
    
    public void printAllPaths() {
       for (Vertex v : graph.values()) {
