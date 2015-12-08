@@ -1,3 +1,9 @@
+/* Authors: Anuj Dalal, Austin Toll
+ * Date: December 7th, 2015
+ * Written for: NET-4001 Project
+ * Recourse used: http://rosettacode.org/wiki/Dijkstra's_algorithm#Java
+ */
+
 package tollDalal.netsim;
 
 import java.io.*;
@@ -39,7 +45,6 @@ public class dijkstra {
    };
    //this is for testing purposes, I'm working on getting it to run through the entire thing
    private static final String START = "1";
-  // private static final String END = "26";
  
    public static void main(String[] args) {
       Graph g = new Graph(GRAPH);
@@ -51,7 +56,6 @@ public class dijkstra {
       
 	     g.delays(dpq);
 	     g.dijkstra(START);
-	    // g.printPath(END);
 	     g.printAllPaths();
    }
 }
@@ -181,6 +185,8 @@ class Graph {
    public void flowCalc(int used){
 	   int Fij = 0;
 	   	  
+	   //Calculate Flows per link
+	   //call delays with Fij parameter
 	   
    }
    
@@ -197,18 +203,7 @@ class Graph {
 	   
 	   return;
    }
- 
-   /** Prints a path from the source to the specified vertex */
-  /*public void printPath(String endName) {
-      if (!graph.containsKey(endName)) {
-         System.err.printf("Graph doesn't contain end vertex \"%s\"\n", endName);
-         return;
-      }
- 
-      graph.get(endName).printPath();
-      System.out.println();
-   }*/
-   
+    
    public void printAllPaths() {
       for (Vertex v : graph.values()) {
          v.printPath();
