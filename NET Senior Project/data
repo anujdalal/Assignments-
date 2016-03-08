@@ -1,0 +1,676 @@
+{
+    "nodes": {
+        "node": [
+            {
+                "id": "openflow:13",
+                "flow-node-inventory:table": [
+                    {
+                        "id": 0,
+                        "flow": [
+                            {
+                                "id": "2",
+                                "instructions": {
+                                    "instruction": [
+                                        {
+                                            "order": 0,
+                                            "apply-actions": {
+                                                "action": [
+                                                    {
+                                                        "order": 0,
+                                                        "output-action": {
+                                                            "max-length": 60,
+                                                            "output-node-connector": "5099"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                },
+                                "match": {
+                                    "ipv4-destination": "192.168.1.2/32",
+                                    "ethernet-match": {
+                                        "ethernet-type": {
+                                            "type": 2048
+                                        }
+                                    }
+                                },
+                                "priority": 120,
+                                "table_id": 0,
+                                "hard-timeout": 0,
+                                "installHw": true,
+                                "idle-timeout": 0,7
+                                "strict": false,
+                                "flow-name": "S3-S2-H2"
+                            },
+                            {
+                                "id": "3",
+                                "instructions": {
+                                    "instruction": [
+                                        {
+                                            "order": 0,
+                                            "apply-actions": {
+                                                "action": [
+                                                    {
+                                                        "order": 0,
+                                                        "output-action": {
+                                                            "max-length": 60,
+                                                            "output-node-connector": "5098"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                },
+                                "match": {
+                                    "ipv4-destination": "192.168.1.3/32",
+                                    "ethernet-match": {
+                                        "ethernet-type": {
+                                            "type": 2048
+                                        }
+                                    }
+                                },
+                                "priority": 130,
+                                "table_id": 0,
+                                "hard-timeout": 0,
+                                "installHw": true,
+                                "idle-timeout": 0,
+                                "strict": false,
+                                "flow-name": "S3toH3"
+                            },
+                            {
+                                "id": "1",
+                                "instructions": {
+                                    "instruction": [
+                                        {
+                                            "order": 0,
+                                            "apply-actions": {
+                                                "action": [
+                                                    {
+                                                        "order": 0,
+                                                        "output-action": {
+                                                            "max-length": 60,
+                                                            "output-node-connector": "5099"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                },
+                                "match": {
+                                    "ipv4-destination": "192.168.1.1/32",
+                                    "ethernet-match": {
+                                        "ethernet-type": {
+                                            "type": 2048
+                                        }
+                                    }
+                                },
+                                "priority": 110,
+                                "table_id": 0,
+                                "hard-timeout": 0,
+                                "installHw": true,
+                                "idle-timeout": 0,
+                                "strict": false,
+                                "flow-name": "S3-S2-H1"
+                            },
+                            {
+                                "id": "4",
+                                "instructions": {
+                                    "instruction": [
+                                        {
+                                            "order": 0,
+                                            "apply-actions": {
+                                                "action": [
+                                                    {
+                                                        "order": 0,
+                                                        "output-action": {
+                                                            "max-length": 60,
+                                                            "output-node-connector": "5097"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                },
+                                "match": {
+                                    "ipv4-destination": "192.168.1.4/32",
+                                    "ethernet-match": {
+                                        "ethernet-type": {
+                                            "type": 2048
+                                        }
+                                    }
+                                },
+                                "priority": 140,
+                                "table_id": 0,
+                                "hard-timeout": 0,
+                                "installHw": true,
+                                "idle-timeout": 0,
+                                "strict": false,
+                                "flow-name": "S3toH4"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "openflow:11",
+                "flow-node-inventory:table": [
+                    {
+                        "id": 0,
+                        "flow": [
+                            {
+                                "id": "2",
+                                "instructions": {
+                                    "instruction": [
+                                        {
+                                            "order": 0,
+                                            "apply-actions": {
+                                                "action": [
+                                                    {
+                                                        "order": 0,
+                                                        "output-action": {
+                                                            "max-length": 60,
+                                                            "output-node-connector": "5101"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                },
+                                "match": {
+                                    "ipv4-destination": "192.168.1.2/32",
+                                    "ethernet-match": {
+                                        "ethernet-type": {
+                                            "type": 2048
+                                        }
+                                    }
+                                },
+                                "priority": 120,
+                                "table_id": 0,
+                                "hard-timeout": 0,
+                                "installHw": true,
+                                "idle-timeout": 0,
+                                "strict": false,
+                                "flow-name": "S1toH2"
+                            },
+                            {
+                                "id": "3",
+                                "instructions": {
+                                    "instruction": [
+                                        {
+                                            "order": 0,
+                                            "apply-actions": {
+                                                "action": [
+                                                    {
+                                                        "order": 0,
+                                                        "output-action": {
+                                                            "max-length": 60,
+                                                            "output-node-connector": "5103"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                },
+                                "match": {
+                                    "ipv4-destination": "192.168.1.3/32",
+                                    "ethernet-match": {
+                                        "ethernet-type": {
+                                            "type": 2048
+                                        }
+                                    }
+                                },
+                                "priority": 130,
+                                "table_id": 0,
+                                "hard-timeout": 0,
+                                "installHw": true,
+                                "idle-timeout": 0,
+                                "strict": false,
+                                "flow-name": "S1-S2-H3"
+                            },
+                            {
+                                "id": "8",
+                                "instructions": {
+                                    "instruction": [
+                                        {
+                                            "order": 0,
+                                            "apply-actions": {
+                                                "action": [
+                                                    {
+                                                        "order": 0,
+                                                        "output-action": {
+                                                            "max-length": 60,
+                                                            "output-node-connector": "5103"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                },
+                                "match": {
+                                    "ipv4-destination": "192.168.1.4/32",
+                                    "ip-match": {
+                                        "ip-protocol": 6
+                                    },
+                                    "ethernet-match": {
+                                        "ethernet-type": {
+                                            "type": 2048
+                                        }
+                                    }
+                                },
+                                "priority": 145,
+                                "table_id": 0,
+                                "hard-timeout": 0,
+                                "installHw": true,
+                                "idle-timeout": 0,
+                                "strict": false,
+                                "flow-name": "S1toH4-tcp"
+                            },
+                            {
+                                "id": "1",
+                                "instructions": {
+                                    "instruction": [
+                                        {
+                                            "order": 0,
+                                            "apply-actions": {
+                                                "action": [
+                                                    {
+                                                        "order": 0,
+                                                        "output-action": {
+                                                            "max-length": 60,
+                                                            "output-node-connector": "5097"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                },
+                                "match": {
+                                    "ipv4-destination": "192.168.1.1/32",
+                                    "ethernet-match": {
+                                        "ethernet-type": {
+                                            "type": 2048
+                                        }
+                                    }
+                                },
+                                "priority": 110,
+                                "table_id": 0,
+                                "hard-timeout": 0,
+                                "installHw": true,
+                                "idle-timeout": 0,
+                                "strict": false,
+                                "flow-name": "S1toH1"
+                            },
+                            {
+                                "id": "6",
+                                "instructions": {
+                                    "instruction": [
+                                        {
+                                            "order": 0,
+                                            "apply-actions": {
+                                                "action": [
+                                                    {
+                                                        "order": 0,
+                                                        "output-action": {
+                                                            "max-length": 60,
+                                                            "output-node-connector": "5101"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                },
+                                "match": {
+                                    "ipv4-destination": "192.168.1.2/32",
+                                    "ip-match": {
+                                        "ip-protocol": 6
+                                    },
+                                    "ethernet-match": {
+                                        "ethernet-type": {
+                                            "type": 2048
+                                        }
+                                    }
+                                },
+                                "priority": 125,
+                                "table_id": 0,
+                                "hard-timeout": 0,
+                                "installHw": true,
+                                "idle-timeout": 0,
+                                "strict": false,
+                                "flow-name": "S1toH2-tcp"
+                            },
+                            {
+                                "id": "7",
+                                "instructions": {
+                                    "instruction": [
+                                        {
+                                            "order": 0,
+                                            "apply-actions": {
+                                                "action": [
+                                                    {
+                                                        "order": 0,
+                                                        "output-action": {
+                                                            "max-length": 60,
+                                                            "output-node-connector": "5103"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                },
+                                "match": {
+                                    "ipv4-destination": "192.168.1.3/32",
+                                    "ip-match": {
+                                        "ip-protocol": 6
+                                    },
+                                    "ethernet-match": {
+                                        "ethernet-type": {
+                                            "type": 2048
+                                        }
+                                    }
+                                },
+                                "priority": 135,
+                                "table_id": 0,
+                                "hard-timeout": 0,
+                                "installHw": true,
+                                "idle-timeout": 0,
+                                "strict": false,
+                                "flow-name": "S1toH3-tcp"
+                            },
+                            {
+                                "id": "4",
+                                "instructions": {
+                                    "instruction": [
+                                        {
+                                            "order": 0,
+                                            "apply-actions": {
+                                                "action": [
+                                                    {
+                                                        "order": 0,
+                                                        "output-action": {
+                                                            "max-length": 60,
+                                                            "output-node-connector": "5103"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                },
+                                "match": {
+                                    "ipv4-destination": "192.168.1.4/32",
+                                    "ethernet-match": {
+                                        "ethernet-type": {
+                                            "type": 2048
+                                        }
+                                    }
+                                },
+                                "priority": 140,
+                                "table_id": 0,
+                                "hard-timeout": 0,
+                                "installHw": true,
+                                "idle-timeout": 0,
+                                "strict": false,
+                                "flow-name": "S1-S2-H4"
+                            },
+                            {
+                                "id": "5",
+                                "instructions": {
+                                    "instruction": [
+                                        {
+                                            "order": 0,
+                                            "apply-actions": {
+                                                "action": [
+                                                    {
+                                                        "order": 0,
+                                                        "output-action": {
+                                                            "max-length": 60,
+                                                            "output-node-connector": "5097"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                },
+                                "match": {
+                                    "ipv4-destination": "192.168.1.1/32",
+                                    "ip-match": {
+                                        "ip-protocol": 6
+                                    },
+                                    "ethernet-match": {
+                                        "ethernet-type": {
+                                            "type": 2048
+                                        }
+                                    }
+                                },
+                                "priority": 115,
+                                "table_id": 0,
+                                "hard-timeout": 0,
+                                "installHw": true,
+                                "idle-timeout": 0,
+                                "strict": false,
+                                "flow-name": "S1toH1-tcp"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "openflow:1",
+                "flow-node-inventory:table": [
+                    {
+                        "id": 0,
+                        "flow": [
+                            {
+                                "id": "1",
+                                "instructions": {
+                                    "instruction": [
+                                        {
+                                            "order": 0,
+                                            "apply-actions": {
+                                                "action": [
+                                                    {
+                                                        "order": 0,
+                                                        "output-action": {
+                                                            "max-length": 60,
+                                                            "output-node-connector": "3"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                },
+                                "match": {
+                                    "ipv4-destination": "172.16.0.11/32",
+                                    "ip-match": {
+                                        "ip-protocol": 6
+                                    },
+                                    "ethernet-match": {
+                                        "ethernet-type": {
+                                            "type": 2048
+                                        }
+                                    }
+                                },
+                                "priority": 115,
+                                "table_id": 0,
+                                "hard-timeout": 0,
+                                "installHw": true,
+                                "idle-timeout": 0,
+                                "strict": false,
+                                "flow-name": "vS1tovH1-tcp"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "openflow:12",
+                "flow-node-inventory:table": [
+                    {
+                        "id": 0,
+                        "flow": [
+                            {
+                                "id": "2",
+                                "instructions": {
+                                    "instruction": [
+                                        {
+                                            "order": 0,
+                                            "apply-actions": {
+                                                "action": [
+                                                    {
+                                                        "order": 0,
+                                                        "output-action": {
+                                                            "max-length": 60,
+                                                            "output-node-connector": "5102"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                },
+                                "match": {
+                                    "ipv4-destination": "192.168.1.2/32",
+                                    "ethernet-match": {
+                                        "ethernet-type": {
+                                            "type": 2048
+                                        }
+                                    }
+                                },
+                                "priority": 120,
+                                "table_id": 0,
+                                "hard-timeout": 0,
+                                "installHw": true,
+                                "idle-timeout": 0,
+                                "strict": false,
+                                "flow-name": "S2toH2"
+                            },
+                            {
+                                "id": "3",
+                                "instructions": {
+                                    "instruction": [
+                                        {
+                                            "order": 0,
+                                            "apply-actions": {
+                                                "action": [
+                                                    {
+                                                        "order": 0,
+                                                        "output-action": {
+                                                            "max-length": 60,
+                                                            "output-node-connector": "5100"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                },
+                                "match": {
+                                    "ipv4-destination": "192.168.1.3/32",
+                                    "ethernet-match": {
+                                        "ethernet-type": {
+                                            "type": 2048
+                                        }
+                                    }
+                                },
+                                "priority": 130,
+                                "table_id": 0,
+                                "hard-timeout": 0,
+                                "installHw": true,
+                                "idle-timeout": 0,
+                                "strict": false,
+                                "flow-name": "S2toH3"
+                            },
+                            {
+                                "id": "4",
+                                "instructions": {
+                                    "instruction": [
+                                        {
+                                            "order": 0,
+                                            "apply-actions": {
+                                                "action": [
+                                                    {
+                                                        "order": 0,
+                                                        "output-action": {
+                                                            "max-length": 60,
+                                                            "output-node-connector": "5100"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                },
+                                "match": {
+                                    "ipv4-destination": "192.168.1.4/32",
+                                    "ethernet-match": {
+                                        "ethernet-type": {
+                                            "type": 2048
+                                        }
+                                    }
+                                },
+                                "priority": 140,
+                                "table_id": 0,
+                                "hard-timeout": 0,
+                                "installHw": true,
+                                "idle-timeout": 0,
+                                "strict": false,
+                                "flow-name": "S2toH4"
+                            },
+                            {
+                                "id": "1",
+                                "instructions": {
+                                    "instruction": [
+                                        {
+                                            "order": 0,
+                                            "apply-actions": {
+                                                "action": [
+                                                    {
+                                                        "order": 0,
+                                                        "output-action": {
+                                                            "max-length": 60,
+                                                            "output-node-connector": "5102"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                },
+                                "match": {
+                                    "ipv4-destination": "192.168.1.1/32",
+                                    "ethernet-match": {
+                                        "ethernet-type": {
+                                            "type": 2048
+                                        }
+                                    }
+                                },
+                                "priority": 110,
+                                "table_id": 0,
+                                "hard-timeout": 0,
+                                "installHw": true,
+                                "idle-timeout": 0,
+                                "strict": false,
+                                "flow-name": "S2toH1"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "controller-config"
+            }
+        ]
+    }
+}
