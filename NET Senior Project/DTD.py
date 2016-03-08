@@ -36,12 +36,15 @@ def getTopology():
 def printTopo(data):
 	'''
 	Data is in JSON form, need to parse for the following:
-		1-Nodes
-			2-Interfaces
-			  Flow tables
-				3-Flows
-					4-Match Parameters
-					  Output connectors
+		From the controller database:
+		Nodes
+		For Each Node: 
+		   Interfaces
+		   Flow table 0
+		      Flows
+		      For each flow (if available):
+		         Match Parameters
+			 Output connectors
 	'''
 	print json.loads(data)
 	#if "node" in JSONdata["nodes"]:
