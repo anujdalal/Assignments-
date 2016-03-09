@@ -15,13 +15,13 @@ def getTopology():
 	uname = raw_input(prompt1)
 	passwd = raw_input(prompt2)
 	auth_handler.add_password(realm='application',
-							  uri='http://134.117.92.76:8181/restconf/config/opendaylight-inventory:nodes',
+							  uri='http://134.117.92.76:8181/restconf/operational/opendaylight-inventory:nodes/node/openflow:11',
 							  user=uname,
 							  passwd=passwd)
 	opener = urllib2.build_opener(auth_handler)
 	urllib2.install_opener(opener)
 	#Open the appropriate URL
-	data = "http://134.117.92.76:8181/restconf/config/opendaylight-inventory:nodes"
+	data = "http://134.117.92.76:8181/restconf/operational/opendaylight-inventory:nodes/node/openflow:11"
 	nodeInfo = urllib2.urlopen(data)
 	if (nodeInfo.getcode() == 200):
 		data = nodeInfo.read()
@@ -79,8 +79,8 @@ def test():
 
 
 def main():
-	#getTopology()
-	test()
+	getTopology()
+	#test()
 	#ui()
 
 
