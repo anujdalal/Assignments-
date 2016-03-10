@@ -1,11 +1,12 @@
-# -*= coding: utf-8 -*-
-from xml.etree.ElementTree import ElementTree
+from xml.etree import ElementTree
 from xml.etree.ElementTree import Element
+from xml.dom import minidom
 import xml.etree.ElementTree as etree
 
 
 
 
+# this function pushes the flows to the devices, via the REST interface of the controller
 def addflows():
 
     node = ''
@@ -14,27 +15,45 @@ def addflows():
     flowname = ''
     flowid = ''
 
-
+# this function constructs flows for each device, and destination address
 def createflows():
 
+    # These variables will be changed for each flow.
     node = []
     flname = 'S1toH1-tcp'
-    id = '5'
-    priority = '116'
+    flowid = '5'
+    flowpriority = '116'
     ipprot = '6'
     ipaddr = '192.168.1.1'
     output = '5097'
 
-
-
+    # Start XML document for flow
     root=Element('flow')
-    tree=ElementTree(root)
+    root.set('xmlns', 'urn:opendaylight:flow:inventory')
     strict=Element('strict')
     strict.text='false'
     root.append(strict)
     name=Element('flow-name')
     name.text=flname
     root.append(name)
+    id=Element('id')
+    id.text=flowid
+    root.append(id)
+    tableid=Element('table-id')
+    tableid.text='0'
+    root.append(tableid)
+    priority=Element('priority')
+    priority.text=flowpriority
+    root.append(priority)
+    hard=Element('hard-timeout')
+    hard.text='0'
+    root.append(hard)
+    idle=Element('idle-timeout')
+    idle.text='0'
+    root.append(idle)
+    installhw=Element('installHw')
+    installhw.text='true'
+    root.append(installhw)
     match=Element('match')
     root.append(match)
     l2match=Element('ethernet-match')
@@ -65,6 +84,7 @@ def createflows():
     applyactions.append(action)
     order1=Element('order')
     order1.text='0'
+    action.append(order1)
     outputaction=Element('output-action')
     action.append(outputaction)
     outconnector=Element('output-node-connector')
@@ -73,8 +93,9 @@ def createflows():
     maxlen=Element('max-length')
     maxlen.text='60'
     outputaction.append(maxlen)
-    print etree.tostring(root)
-    tree.write(open(r'C:\users\anuj dalal\desktop\test.xml','w'))
-
+    rstring=ElementTree.tostring(root, 'utf-8')
+    reparsed=minidom.parseString(rstring)
+    print reparsed.toprettyxml(indent="     ")
+    reparsed.writexml(open(r'/home/anujdalal/Desktop/'+flname+'.xml','w'),addindent="     ",newl='\n')
 
 createflows()
