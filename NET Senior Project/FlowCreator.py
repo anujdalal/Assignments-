@@ -1,4 +1,4 @@
-from xml.etree import ElementTree
+from xml.etree.ElementTree import ElementTree
 from xml.etree.ElementTree import Element
 from xml.dom import minidom
 import xml.etree.ElementTree as etree
@@ -10,22 +10,28 @@ import xml.etree.ElementTree as etree
 def addflows():
 
     node = ''
-    src = ''
-    dst = ''
     flowname = ''
     flowid = ''
 
+
+
+
+
+
+
+
 # this function constructs flows for each device, and destination address
-def createflows():
+def createflows(node):
 
     # These variables will be changed for each flow.
-    node = []
+    node = ''
     flname = 'S1toH1-tcp'
     flowid = '5'
     flowpriority = '116'
     ipprot = '6'
     ipaddr = '192.168.1.1'
     output = '5097'
+    path='/home/anujdalal/Desktop/'
 
     # Start XML document for flow
     root=Element('flow')
@@ -93,9 +99,10 @@ def createflows():
     maxlen=Element('max-length')
     maxlen.text='60'
     outputaction.append(maxlen)
-    rstring=ElementTree.tostring(root, 'utf-8')
+    rstring=etree.tostring(root, encoding='utf-8')
     reparsed=minidom.parseString(rstring)
-    print reparsed.toprettyxml(indent="     ")
-    reparsed.writexml(open(r'/home/anujdalal/Desktop/'+flname+'.xml','w'),addindent="     ",newl='\n')
+    s=str(reparsed.toprettyxml(indent="     ", encoding='UTF-8'))
+    flow=open(r'' + path + flname + '.xml', 'w')
+    flow.write(s)
 
 createflows()
