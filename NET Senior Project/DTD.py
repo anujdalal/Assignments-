@@ -46,7 +46,7 @@ def printTopo(data):
 		         Match Parameters
 			 Output connectors
 	'''
-	
+	jsonResponse=json.loads(decoded_response)
 	jsonData = jsonResponse["data"]
 		for item in jsonData:
 			node = item.get("id")
