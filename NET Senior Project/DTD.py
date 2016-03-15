@@ -46,6 +46,17 @@ def printTopo(data):
 		         Match Parameters
 			 Output connectors
 	'''
+	
+	jsonData = jsonResponse["data"]
+		for item in jsonData:
+			node = item.get("id")
+			interfaces = item.get("interfaces")
+			flowtable = item.get("flowtable")
+			Flows = item.get("flow-name")
+			matchParameters = item.get("matchParameters")
+			outputCon = item.get("output-node-connector")
+			
+			
 	print json.loads(data)
 	#if "node" in JSONdata["nodes"]:
 	#	print JSONdata["nodes"]["node"]
