@@ -2,31 +2,26 @@ from xml.etree.ElementTree import Element
 from xml.dom import minidom
 from subprocess import call
 import xml.etree.ElementTree as etree
-
-
-# this function pushes the flows to the devices, via the REST interface of the controller
-def addflows(dev, flname, flowid):
-
-    post = 'curl -X PUT -d @'+flname+' -H "Content-Type: application/xml" -H "Accept: application/xml" --user admin:admin http://localhost:8181/restconf/config/opendaylight-inventory:nodes/node/'+dev+'/table/0/flow/'+flowid
-    call([post])
-
+import os
 # this function constructs flows for each device, and destination address
 def createflows():
 
     # These variables will be changed for each flow.
     node = 'Enter the device you want to modify (openflow:x): '
+    directory = 'Directory for device: '
     flowname = 'Flow Name: '
     flid = 'Flow ID: '
     flpriority = 'Flow Priority: '
     transport = 'TCP/UDP: '
     ipv4 = 'Destination IP: '
     outint = 'Egress interface: '
-    path='/home/localadmin/flows/'
+    path='flows/'
     true = 1
 
     while (true == 1):
         dev = raw_input(node)
-        path += dev
+	direc = raw_input(directory)
+        path += direc+'/'
         print path
         print 'Please fill in the following to add a flow'
         flname = raw_input(flowname)
@@ -105,10 +100,10 @@ def createflows():
         rstring=etree.tostring(root, encoding='utf-8')
         reparsed=minidom.parseString(rstring)
         s=str(reparsed.toprettyxml(indent="     ", encoding='UTF-8'))
-        flow=open(r'' + path + flname + '.xml', 'w')
+        flow=open(r'' + path + flname, 'w')
         flow.write(s)
-        print s
-        addflows(dev, flname, flowid)
+        #print s
+	os.system('curl -X PUT -d @'+path+flname+' -H "Content-Type: application/xml" -H "Accept: application/xml" --user admin:admin http://localhost:8181/restconf/config/opendaylight-inventory:nodes/node/'+dev+'/table/0/flow/'+flowid)
 
         addmore = 'Add another flow?'
         response = raw_input(addmore)
