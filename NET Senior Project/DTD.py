@@ -1,6 +1,6 @@
 import urllib2
 import json
-import pycurl
+#import pycurl
 import sys
 import re
 import xml.etree.ElementTree as ET
@@ -15,19 +15,20 @@ def getTopology():
 	uname = raw_input(prompt1)
 	passwd = raw_input(prompt2)
 	auth_handler.add_password(realm='application',
-							  uri='http://134.117.92.76:8181/restconf/operational/opendaylight-inventory:nodes/node/openflow:11',
+							  uri='http://134.117.92.76:8181/restconf/operational/opendaylight-inventory:nodes',
 							  user=uname,
 							  passwd=passwd)
 	opener = urllib2.build_opener(auth_handler)
 	urllib2.install_opener(opener)
 	#Open the appropriate URL
-	data = "http://134.117.92.76:8181/restconf/operational/opendaylight-inventory:nodes/node/openflow:11"
+	data = "http://134.117.92.76:8181/restconf/operational/opendaylight-inventory:nodes"
 	nodeInfo = urllib2.urlopen(data)
 	if (nodeInfo.getcode() == 200):
 		data = nodeInfo.read()
 		print 'good'
 		#Prints the data in readable form
 		printTopo(data)
+		print data
 		#print "Found the following OpenFlow devices:" , re.match("^n", "node")
 	else:
 		print 'Cannot open URL:' + str(nodeInfo.getcode())
@@ -41,25 +42,28 @@ def printTopo(data):
 		For Each Node: 
 		   Interfaces
 		   Flow table 0
-		      Flows
-		      For each flow (if available):
-		         Match Parameters
+			  Flows
+			  For each flow (if available):
+				 Match Parameters
 			 Output connectors
 	'''
-	jsonResponse=json.loads(decoded_response)
-	jsonData = jsonResponse["data"]
-		for item in jsonData:
-			node = item.get("id")
-			interfaces = item.get("interfaces")
-			flowtable = item.get("flowtable")
-			Flows = item.get("flow-name")
-			matchParameters = item.get("matchParameters")
-			outputCon = item.get("output-node-connector")
-			
-			
-	print json.loads(data)
+	#jsonResponse=json.loads(decoded_response)
+	#jsonData = jsonResponse["data"]
+
+	'''
+	for item in data:
+		node = item.get("id")
+		interfaces = item.get("interfaces")
+		flowtable = item.get("flowtable")
+		Flows = item.get("flow-name")
+		matchParameters = item.get("matchParameters")
+		outputCon = item.get("output-node-connector")
+		print node+interfaces+flowtable+Flows+matchParameters+outputCon
+
+	#print json.loads(data)
 	#if "node" in JSONdata["nodes"]:
-	#	print JSONdata["nodes"]["node"]
+	#print JSONdata["nodes"]["node"]
+	'''
 
 
 def ui():
@@ -75,7 +79,7 @@ def ui():
 		else:
 			true = 1
 
-def test():
+def dtd():
 	print 'This is the DTD test application.'
 	src = 'Choose source host (1, 2, 3, 4): '
 	dst = 'Choose destination host (1, 2, 3, 4): '
