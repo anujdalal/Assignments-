@@ -3,11 +3,11 @@ import os
 def createflows():
     true = 1
     count = 0
-    while (true == 1):
+    while true == 1:
         dev = raw_input('Enter the device you want to modify (openflow:x): ')
         request = raw_input('(A)dd a flow, or (m)odify an existing flow?')
 
-        if (request == 'a' or 'A'):
+        if request == 'a' or request == 'A':
             print 'Please fill in the following to add a flow'
             flowname = raw_input('Flow Name: ')
             flowid = raw_input('Flow ID: ')
@@ -26,17 +26,17 @@ def createflows():
 
             addmore = 'Add another flow?'
             response = raw_input(addmore)
-            if (response == 'y' or 'Y'):
+            if response == 'y' or response == 'Y':
                 request = 'a'
-            elif (response == 'n' or 'N'):
+            elif response == 'n' or response == 'N':
                 true = 0
                 break
 
-        elif (request == 'm' or 'M'):
-            if (count == 0):
+        elif request == 'm' or request == 'M':
+            if count == 0:
                 flowid = raw_input('Flow ID: ')
                 outint = raw_input('Egress interface: ')
-            elif (count == 1):
+            elif count > 1:
                 dev = raw_input('Enter the device you want to modify (openflow:x): ')
                 flowid = raw_input('Flow ID: ')
                 outint = raw_input('Egress interface: ')
@@ -44,12 +44,13 @@ def createflows():
 
             os.system('''curl -u admin:admin -H 'Content-type: application/json' -X PUT -d '{ "instruction": [{ "order": "0", "apply-actions": { "action": [{ "order": "0",
                       "output-action": { "output-node-connector": "'''+outint+'''", "max-length": "60"}}]}}]}'
-                      'http://localhost:8181/restconf/config/opendaylight-inventory:nodes/node/'''+dev+'''/flow-node-inventory:table/0/flow/'''+flowid+'''instructions/instruction/0''')
+                      'http://localhost:8181/restconf/config/opendaylight-inventory:nodes/node/'''+dev+'''/flow-node-inventory:table/0/flow/'''+flowid+'''instructions/instruction/0"'"''')
             count += 1
             modify = raw_input('Modify another flow?')
-            if (modify == 'y' or 'Y'):
+            if modify == 'y' or modify == 'Y':
                 request = 'm'
-            elif (modify == 'n' or 'N'):
+            elif modify == 'n' or modify == 'N':
                 true = 0
                 break
 createflows()
+
