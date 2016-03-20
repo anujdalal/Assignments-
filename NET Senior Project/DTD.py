@@ -47,23 +47,31 @@ def printTopo(data):
 				 Match Parameters
 			 Output connectors
 	'''
-	#jsonResponse=json.loads(decoded_response)
-	#jsonData = jsonResponse["data"]
 
-	'''
-	for item in data:
-		node = item.get("id")
-		interfaces = item.get("interfaces")
-		flowtable = item.get("flowtable")
-		Flows = item.get("flow-name")
-		matchParameters = item.get("matchParameters")
-		outputCon = item.get("output-node-connector")
-		print node+interfaces+flowtable+Flows+matchParameters+outputCon
+        jsonResponse=json.loads(data)
+        jsonData = jsonResponse["nodes"]
 
-	#print json.loads(data)
-	#if "node" in JSONdata["nodes"]:
-	#print JSONdata["nodes"]["node"]
-	'''
+        g = 0
+        h = 0
+        i = 0
+
+
+        for item in jsonData:
+
+            while (g <= 5):
+                node = jsonData["node"][g]["id"]
+                table = jsonData["node"][g]["flow-node-inventory:table"][h]["id"]
+                print ("node:") + str(node)
+                print ("flowtable:") + str(table)
+                for i in xrange(0, 6):
+                    flow = jsonData["node"][g]["flow-node-inventory:table"][h]["flow"][i]["flow-name"]
+                    match = jsonData["node"][g]["flow-node-inventory:table"][h]["flow"][i]["match"]["ipv4-destination"]
+                    outtputnode = jsonData["node"][g]["flow-node-inventory:table"][h]["flow"][i]["instructions"]["instruction"][0]["apply-actions"]["action"][0]["output-action"]["output-node-connector"]
+                    print ("flow:") + str(flow)
+                    print ("output-node-connector:") + str(outtputnode)
+                    print ("match:") + str(match)
+                    #i = i+1
+                g = g + 1
 
 
 def ui():
