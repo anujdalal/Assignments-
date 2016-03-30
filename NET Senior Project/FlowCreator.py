@@ -43,6 +43,9 @@ def createflows():
 
             os.system('''curl -u admin:admin -H 'Content-type: application/json' -X PUT -d '{ "instruction": [{ "order": "0", "apply-actions": { "action": [{ "order": "0",
                       "output-action": { "output-node-connector": "'''+outint+'''", "max-length": "60"}}]}}]}' 'http://localhost:8181/restconf/config/opendaylight-inventory:nodes/node/'''+dev+'''/flow-node-inventory:table/0/flow/'''+flowid+'''/instructions/instruction/0' ''')
+
+
+
             count += 1
             modify = raw_input('Modify another flow?')
             if modify == 'y' or modify == 'Y':

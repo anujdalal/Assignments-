@@ -15,7 +15,7 @@ def getTopology():
 	uname = raw_input(prompt1)
 	passwd = raw_input(prompt2)
 	auth_handler.add_password(realm='application',
-							  uri='http://134.117.92.76:8181/restconf/operational/opendaylight-inventory:nodes',
+							  uri='http://134.117.92.76:8181/index.html#/login',
 							  user=uname,
 							  passwd=passwd)
 	opener = urllib2.build_opener(auth_handler)
