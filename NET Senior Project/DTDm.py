@@ -21,8 +21,8 @@ def getbytesP(device, interface):
     return sent
 
 def topo():
-    dev = ['11', '13']
-    int = [['5100', '5103'],['5100', '5099']]
+    dev = ['1', '3']
+    int = [['2'],['1']]
     data = []
 
     for index in range(len(dev)):
@@ -36,12 +36,35 @@ def topo():
             for index in range(len(int[1])):
                 interface = int[1][index]
                 data.extend(getbytesP(device, interface))
-    return data
 
-def linkUtil():
+def DTD(outint,dev,flow1,flow2):
+
+    flowid = [flow1,flow2]
+    for index in range(len(flowid)):
+        os.system('''curl -u admin:admin -H 'Content-type: application/json' -X PUT -d '{ "instruction": [{ "order": "0", "apply-actions": { "action": [{ "order": "0",
+                      "output-action": { "output-node-connector": "'''+outint+'''", "max-length": "60"}}]}}]}' 'http://134.117.92.76:8181/restconf/config/opendaylight-inventory:nodes/node/openflow:'''+dev+'''/flow-node-inventory:table/0/flow/'''+flowid[index]+'''/instructions/instruction/0' ''')
+
+
+
+def main():
+    print "Starting DTD application for mininet topology...\n"
     data = topo()
+    print "Monitoring  openflow:1:2 and openflow:3:1"
+    state = [0,0]
     while True:
         for index in range(len(data)):
+            if index is 0:
+                outint = '2'
+                altint = '1'
+                flow1 = '5'
+                flow2 = '7'
+                dev = '1'
+            elif index is 1:
+                outint = '1'
+                altint = '2'
+                flow1 = '1'
+                flow2 = '3'
+                dev = '3'
             sentBytes = data[index]
             while True:
                 oldSentBytes = sentBytes
@@ -50,26 +73,20 @@ def linkUtil():
                 if sentBytes != oldSentBytes:
                     byteRate = float(sentBytes - oldSentBytes)
                     print byteRate
-                    util = round((byteRate/131072), 2)
-                    print util
+                    util = round((byteRate/125000000)*100, 2)
+                    print util, dev
+                    if util > 85 and state[index] is 0:
+                        DTD(altint,dev,flow1,flow2)
+                        state[index] = 1
+                        print "Upper threshold reached on openflow:"+dev+":"+outint+", Utilization = "+str(util)+"%. All TCP traffic diverted to "+altint+"."
+                    elif util < 50 and state[index] is 1:
+                        DTD(outint,dev,flow1,flow2)
+                        state[index] = 0
+                        print "Lower threshold reached on openflow:"+dev+":"+outint+", Utilization = "+str(util)+"%. All TCP traffic diverted back to "+outint+"."
                 else:
-                    print "No change..."
+                    True
                 time.sleep(1)
                 break
-
-
-def DTD(outint,dev,flowid):
-
-    os.system('''curl -u admin:admin -H 'Content-type: application/json' -X  PUT -d '{ "instruction":
-            [{ "order": "0", "apply-actions": { "action": [{ "order": "0",
-            "output-action": { "output-node-connector": "'''+outint+'''", "max-length": "60"}}]}}]}'
-            'http://localhost:8181/restconf/config/opendaylight-inventory:nodes/node/'''+dev+'''/
-            flow-node-inventory:table/0/flow/'''+flowid+'''/instructions/instruction/0' ''')
-
-
-
-def main():
-    linkUtil()
 
 
 if __name__ == "__main__":
