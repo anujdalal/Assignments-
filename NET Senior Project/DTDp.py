@@ -1,3 +1,4 @@
+
 import re
 import os
 import time
@@ -44,27 +45,33 @@ def DTD(outint,dev,flow1,flow2):
     for index in range(len(flowid)):
         os.system('''curl -u admin:admin -H 'Content-type: application/json' -X PUT -d '{ "instruction": [{ "order": "0", "apply-actions": { "action": [{ "order": "0",
                       "output-action": { "output-node-connector": "'''+outint+'''", "max-length": "60"}}]}}]}' 'http://localhost:8181/restconf/config/opendaylight-inventory:nodes/node/openflow:'''+dev+'''/flow-node-inventory:table/0/flow/'''+flowid[index]+'''/instructions/instruction/0' ''')
-
+    print  "!!!Traffic for flows "+flow1+" and flow "+flow2+" diverted to alternate link!!!"
 
 def main():
     print "Starting DTD application for physical topology...\n"
     data = topo()
-    print "Monitoring  openflow:11:5100 and openflow:13:5100"
+    print "Monitoring Switch 1: Gi1/0/23 and Switch 3: Gi1/0/24\n"
     state = [0,0]
     while True:
         for index in range(len(data)):
             if index is 0:
                 outint = '5100'
+		intname = 'Gi1/0/23'
                 altint = '5103'
+		altintname= 'Gi1/0/24'
                 flow1 = '9'
                 flow2 = '10'
                 dev = '11'
+		devname = 'Switch 1'
             elif index is 1:
                 outint = '5100'
+		intname = 'Gi1/0/24'
                 altint = '5099'
+		altintname = 'Gi1/0/23'
                 flow1 = '5'
                 flow2 = '6'
                 dev = '13'
+		devname = 'Switch 3'
             sentBytes = data[index]
             while True:
                 oldSentBytes = sentBytes
@@ -72,18 +79,20 @@ def main():
                 sentBytes = data[index]
                 if sentBytes != oldSentBytes:
                     byteRate = float(sentBytes - oldSentBytes)/5
-                    print byteRate
+                    #print byteRate
                     util = round((byteRate/125000000)*100, 2)
-                    print util, dev
+		    print "Utilizaition = "+str(util)+"% on "+devname+": "+intname+"\n"
                     if util > 90 and state[index] is 0:
+			print "!!!Upper threshold reached on "+devname+": "+intname+", Utilization = "+str(util)+"%!!!\n"
                         DTD(altint,dev,flow1,flow2)
                         state[index] = 1
-                        print "Upper threshold reached on openflow:"+dev+":"+outint+", Utilization = "+str(util)+"%. All TCP traffic diverted to "+altint+"."
                     elif util < 50 and state[index] is 1:
+			print "!!!Lower threshold reached on "+devname+": "+intname+", Utilization = "+str(util)+"%!!!\n"
                         DTD(outint,dev,flow1,flow2)
                         state[index] = 0
-                        print "Lower threshold reached on openflow:"+dev+":"+outint+", Utilization = "+str(util)+"%. All TCP traffic diverted back to "+outint+"."
-                time.sleep(1)
+		#else:
+		#    print "No change on "+devname
+                time.sleep(0.5)
                 break
 
 
